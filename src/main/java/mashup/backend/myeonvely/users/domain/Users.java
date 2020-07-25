@@ -1,10 +1,8 @@
 package mashup.backend.myeonvely.users.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import mashup.backend.myeonvely.common.domain.BaseTimeEntity;
+import mashup.backend.myeonvely.items.domain.History;
 
 import javax.persistence.*;
 import java.util.List;
@@ -12,7 +10,7 @@ import java.util.List;
 @Getter
 @ToString(exclude = "devices")
 @Entity
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Users extends BaseTimeEntity {
 
     @Id
