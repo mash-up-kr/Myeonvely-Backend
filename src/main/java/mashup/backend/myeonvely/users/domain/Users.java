@@ -5,8 +5,13 @@ package mashup.backend.myeonvely.users.domain;
 >>>>>>> feat : 사용자 Repository 추가:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
 
 import lombok.*;
+<<<<<<< HEAD
 import mashup.backend.tich.common.domain.BaseTimeEntity;
 import mashup.backend.tich.device.domain.Device;
+=======
+import mashup.backend.myeonvely.common.domain.BaseTimeEntity;
+import mashup.backend.myeonvely.items.domain.History;
+>>>>>>> merge : 생활용품 도메인 생성 (#2)
 
 import javax.persistence.*;
 import java.util.List;
@@ -14,11 +19,15 @@ import java.util.List;
 @Getter
 @ToString(exclude = "devices")
 @Entity
+<<<<<<< HEAD
 <<<<<<< HEAD:src/main/java/mashup/backend/tich/user/domain/User.java
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
 =======
 @NoArgsConstructor
+=======
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+>>>>>>> merge : 생활용품 도메인 생성 (#2)
 public class Users extends BaseTimeEntity {
 >>>>>>> feat : 사용자 Repository 추가:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
 
