@@ -4,7 +4,6 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import mashup.backend.myeonvely.users.domain.Users;
 
 import javax.persistence.*;
 import java.time.LocalDate;
