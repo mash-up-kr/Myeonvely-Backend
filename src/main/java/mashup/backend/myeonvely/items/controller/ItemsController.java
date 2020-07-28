@@ -33,6 +33,21 @@ public class ItemsController {
         return ResponseEntity.status(HttpStatus.OK).body(itemsService.findItems(user));
     }
 
+    @ApiOperation("생활용품 상세 조회")
+    @GetMapping("/{itemId}")
+    public ResponseEntity findItem(@RequestHeader String accessToken,
+                                   @PathVariable Long itemId) {
+        // 임시 코드 : 추후 수정
+        Users user = usersRepository.save(Users.builder()
+                .name("temp")
+                .email("temp")
+                .picture("temp")
+                .role(Role.USER)
+                .build());
+        // ToDo : user check (accessToken)
+        return ResponseEntity.status(HttpStatus.OK).body(itemsService.findItem(user, itemId));
+    }
+
     @ApiOperation("생활용품 등록")
     @PostMapping
     public ResponseEntity saveItem(@RequestHeader String accessToken,
