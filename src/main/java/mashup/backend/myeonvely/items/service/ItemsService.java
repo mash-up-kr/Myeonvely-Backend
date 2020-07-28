@@ -25,7 +25,7 @@ public class ItemsService {
     @Transactional(readOnly = true)
     public List<ItemsResponseDto> findItems(Users user) {
         List<ItemsResponseDto> itemsResponseDtos = new ArrayList<>();
-        List<Items> items = itemsRepository.findAllByUser(user.getId());
+        List<Items> items = itemsRepository.findAllByUserId(user.getId());
 
         for(Items item : items) {
             itemsResponseDtos.add(ItemsResponseDto.builder()
@@ -40,6 +40,26 @@ public class ItemsService {
             .build());
         }
         return itemsResponseDtos;
+    }
+
+    @Transactional(readOnly = true)
+    public ItemsResponseDto findItem(Users user, Long itemId) {
+        Items item = itemsRepository.findById(itemId)
+                .orElseThrow(() -> new NoResultException());
+
+        if(!item.getUser().getId().equals(user.getId()))
+            throw new SecurityException("This user does not have access.");
+
+        return ItemsResponseDto.builder()
+                .id(item.getId())
+                .userId(item.getUser().getId())
+                .categoryId(item.getCategory().getId())
+                .title(item.getTitle())
+                .startDate(item.getStartDate())
+                .latestDate(item.getLatestDate())
+                .scheduledDate(item.getScheduledDate())
+                .cycle(item.getCycle())
+                .build();
     }
 
     @Transactional
