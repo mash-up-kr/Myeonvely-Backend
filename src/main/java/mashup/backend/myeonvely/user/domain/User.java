@@ -1,8 +1,12 @@
+<<<<<<< HEAD:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
 <<<<<<< HEAD:src/main/java/mashup/backend/tich/user/domain/User.java
 package mashup.backend.tich.user.domain;
 =======
 package mashup.backend.myeonvely.users.domain;
 >>>>>>> feat : 사용자 Repository 추가:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
+=======
+package mashup.backend.myeonvely.user.domain;
+>>>>>>> style : 패키지명과 클래스명 수정 (#6):src/main/java/mashup/backend/myeonvely/user/domain/User.java
 
 import lombok.*;
 <<<<<<< HEAD
@@ -23,6 +27,7 @@ import java.util.List;
 <<<<<<< HEAD:src/main/java/mashup/backend/tich/user/domain/User.java
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
+<<<<<<< HEAD:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
 =======
 @NoArgsConstructor
 =======
@@ -30,6 +35,8 @@ public class User extends BaseTimeEntity {
 >>>>>>> merge : 생활용품 도메인 생성 (#2)
 public class Users extends BaseTimeEntity {
 >>>>>>> feat : 사용자 Repository 추가:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
+=======
+>>>>>>> style : 패키지명과 클래스명 수정 (#6):src/main/java/mashup/backend/myeonvely/user/domain/User.java
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -59,6 +66,7 @@ public class Users extends BaseTimeEntity {
         this.role = role;
     }
 
+<<<<<<< HEAD:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
 <<<<<<< HEAD:src/main/java/mashup/backend/tich/user/domain/User.java
     public void setDevices(List<Device> devices) {
         this.devices = devices;
@@ -72,6 +80,13 @@ public class Users extends BaseTimeEntity {
 
     public Users update(String name, String picture){
 >>>>>>> feat : 사용자 Repository 추가:src/main/java/mashup/backend/myeonvely/users/domain/Users.java
+=======
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
+    public User update(String name, String picture){
+>>>>>>> style : 패키지명과 클래스명 수정 (#6):src/main/java/mashup/backend/myeonvely/user/domain/User.java
         this.name = name;
         this.picture = picture;
 
