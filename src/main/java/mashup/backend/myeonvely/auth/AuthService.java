@@ -15,7 +15,6 @@ public class AuthService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    private final UserRepository userRepository;
     private final FindUserByIdFunction findUserByIdFunction;
 
     public User getUserByAccessToken(String accessToken){
