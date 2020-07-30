@@ -50,7 +50,7 @@ public class ItemService {
         Item item = itemRepository.findById(itemId)
                 .orElseThrow(() -> new NoResultException());
 
-        if(!item.getUser().getId().equals(user.getId()))
+        if (!item.getUser().getId().equals(user.getId()))
             throw new SecurityException("This user does not have access.");
 
         return ItemResponseDto.builder()

@@ -46,12 +46,18 @@ public class ItemController {
     public ResponseEntity findItem(@RequestHeader String accessToken,
                                    @PathVariable Long itemId) {
         // 임시 코드 : 추후 수정
-        User user = userRepository.save(User.builder()
-                .name("temp")
-                .email("temp")
-                .picture("temp")
-                .role(Role.USER)
-                .build());
+        User user;
+        try {
+            user = userRepository.findByEmail("temp")
+                    .orElseThrow(() -> new NoResultException());
+        } catch (NoResultException e) {
+            user = userRepository.save(User.builder()
+                    .name("temp")
+                    .email("temp")
+                    .picture("temp")
+                    .role(Role.USER)
+                    .build());
+        }
         // ToDo : user check (accessToken)
         return ResponseEntity.status(HttpStatus.OK).body(itemService.findItem(user, itemId));
     }
