@@ -1,19 +1,16 @@
-package mashup.backend.myeonvely.users.entity;
+package mashup.backend.myeonvely.user.domain;
 
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.ToString;
+import lombok.*;
 import mashup.backend.myeonvely.common.domain.BaseTimeEntity;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Getter
-@ToString()
-@NoArgsConstructor
+@ToString(exclude = "devices")
 @Entity
-public class Users extends BaseTimeEntity {
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+public class User extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,6 +22,7 @@ public class Users extends BaseTimeEntity {
     @Column(nullable = false)
     private String email;
 
+    @Column
     private String picture;
 
     @Enumerated(EnumType.STRING)
@@ -32,17 +30,21 @@ public class Users extends BaseTimeEntity {
     private Role role;
 
     @OneToMany(mappedBy = "user")
-    private List<Devices> devices;
+    private List<Device> devices;
 
     @Builder
-    public Users(String name, String email, String picture, Role role){
+    public User(String name, String email, String picture, Role role){
         this.name = name;
         this.email = email;
         this.picture = picture;
         this.role = role;
     }
 
-    public Users update(String name, String picture){
+    public void setDevices(List<Device> devices) {
+        this.devices = devices;
+    }
+
+    public User update(String name, String picture){
         this.name = name;
         this.picture = picture;
 
