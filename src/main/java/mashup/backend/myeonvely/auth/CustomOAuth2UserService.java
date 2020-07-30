@@ -3,8 +3,8 @@ package mashup.backend.myeonvely.auth;
 import lombok.RequiredArgsConstructor;
 import mashup.backend.myeonvely.auth.dto.OAuthAttributes;
 import mashup.backend.myeonvely.auth.dto.SessionUser;
-import mashup.backend.myeonvely.users.domain.Users;
-import mashup.backend.myeonvely.users.domain.UsersRepository;
+import mashup.backend.myeonvely.user.domain.User;
+import mashup.backend.myeonvely.user.domain.UserRepository;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.oauth2.client.userinfo.DefaultOAuth2UserService;
 import org.springframework.security.oauth2.client.userinfo.OAuth2UserRequest;
@@ -20,7 +20,7 @@ import java.util.Collections;
 @RequiredArgsConstructor
 @Service
 public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
-    private final UsersRepository usersRepository;
+    private final UserRepository userRepository;
     private final HttpSession httpSession;
 
 
@@ -35,7 +35,7 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
 
         OAuthAttributes attributes = OAuthAttributes.of(registrationId, userNameAttributeName, oAuth2User.getAttributes());
 
-        Users user = saveOrUpdate(attributes);
+        User user = saveOrUpdate(attributes);
         httpSession.setAttribute("user", new SessionUser(user));
 
         return new DefaultOAuth2User(
@@ -45,12 +45,12 @@ public class CustomOAuth2UserService implements OAuth2UserService<OAuth2UserRequ
     }
 
 
-    private Users saveOrUpdate(OAuthAttributes attributes) {
-        Users user = usersRepository.findByEmail(attributes.getEmail())
+    private User saveOrUpdate(OAuthAttributes attributes) {
+        User user = userRepository.findByEmail(attributes.getEmail())
                 .map(entity -> entity.update(attributes.getName(), attributes.getPicture()))
                 .orElse(attributes.toEntity());
 
-        return usersRepository.save(user);
+        return userRepository.save(user);
     }
 
 }

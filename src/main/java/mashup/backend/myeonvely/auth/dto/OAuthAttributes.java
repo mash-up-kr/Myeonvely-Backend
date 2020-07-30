@@ -2,8 +2,8 @@ package mashup.backend.myeonvely.auth.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import mashup.backend.myeonvely.users.domain.Role;
-import mashup.backend.myeonvely.users.domain.Users;
+import mashup.backend.myeonvely.user.domain.Role;
+import mashup.backend.myeonvely.user.domain.User;
 
 import java.util.Map;
 
@@ -38,8 +38,8 @@ public class OAuthAttributes {
                 .build();
     }
 
-    public Users toEntity() {
-        return Users.builder()
+    public User toEntity() {
+        return User.builder()
                 .name(name)
                 .email(email)
                 .picture(picture)
