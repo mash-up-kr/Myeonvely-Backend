@@ -111,13 +111,7 @@ public class ItemService {
         if (!item.getUser().getId().equals(user.getId()))
             throw new SecurityException("This user does not have access.");
 
-        Category category = item.getCategory();
-
-        // 카테고리가 바뀌었는지 Check
-        if (!category.getName().equals(requestDto.getCategory())) {
-            category = categoryRepository.findByName(requestDto.getCategory())
-                    .orElseThrow(() -> new NoResultException("There is no result for this category name."));
-        }
+        Category category = checkCategory(item.getCategory(), requestDto.getCategory());
 
         LocalDate startDate = LocalDate.parse(requestDto.getStartDate(), DateTimeFormatter.ISO_DATE);
         LocalDate latestDate = item.getLatestDate();
@@ -131,13 +125,7 @@ public class ItemService {
 
         item.update(category, requestDto.getTitle(), startDate, latestDate, scheduledDate, requestDto.getCycle());
 
-        /* ToDo : Set History
-        List<History> history = historyRepository.findAllByItemId(item.getId());
-        if(history.size() > 0) {
-            history.get(0).update(startDate);
-        }
-        item.setHistory(history);
-        */
+        updateHistory(item, startDate);
 
         return ItemResponseDto.builder()
                 .id(item.getId())
@@ -153,5 +141,22 @@ public class ItemService {
 
     private LocalDate calculateScheduledDate(LocalDate latestDate, Integer cycle) {
         return latestDate.plusDays(cycle);
+    }
+
+    private Category checkCategory(Category category, String compareName) {
+        if (!category.getName().equals(compareName)) {
+            category = categoryRepository.findByName(compareName)
+                    .orElseThrow(() -> new NoResultException("There is no result for this category name."));
+        }
+        return category;
+    }
+
+    private void updateHistory(Item item, LocalDate startDate) {
+        List<History> history = new ArrayList<>();
+                            // = historyRepository.(item.getId());
+        if(history.size() > 0) {
+//            history.get(0).update(startDate);
+        }
+        item.setHistory(history);
     }
 }
