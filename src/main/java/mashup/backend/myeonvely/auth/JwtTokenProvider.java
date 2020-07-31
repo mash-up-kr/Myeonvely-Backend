@@ -4,11 +4,9 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.security.Keys;
-import lombok.RequiredArgsConstructor;
 import mashup.backend.myeonvely.auth.dto.AccessToken;
 import mashup.backend.myeonvely.exception.InvalidTokendException;
 import mashup.backend.myeonvely.user.domain.User;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import java.util.Date;
@@ -26,21 +24,21 @@ public class JwtTokenProvider {
         return InnerInstance.instance;
     }
 
-    public AccessToken generateAccessKey(User user, String secetKey){
+    public AccessToken generateAccessKey(User user, String secretKey){
         Map<String, Object> claims = new HashMap<>();
         claims.put("userId", user.getId().toString());
 
-        return generateAccessKey(claims, secetKey);
+        return generateAccessKey(claims, secretKey);
     }
 
-    public AccessToken generateAccessKey(Map<String, Object> claims, String secertKey){
+    public AccessToken generateAccessKey(Map<String, Object> claims, String secretKey){
         Date now = new Date();
 
         String token = Jwts.builder()
                 .setClaims(claims)
                 .setSubject("AccessToken")
                 .setIssuedAt(now)
-                .signWith(getSigningKey(secertKey))
+                .signWith(getSigningKey(secretKey))
                 .compact();
 
         return new AccessToken(token);

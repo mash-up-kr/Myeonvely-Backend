@@ -1,6 +1,6 @@
 package mashup.backend.myeonvely.exception;
 
-public class BaseException extends RuntimeException{
+public class BaseException extends RuntimeException {
 
     protected ErrorCode error;
 
