@@ -2,8 +2,10 @@ package mashup.backend.myeonvely.item.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import mashup.backend.myeonvely.item.dto.ItemResponseDto;
 import mashup.backend.myeonvely.item.dto.ItemSaveRequestDto;
 import mashup.backend.myeonvely.item.dto.ItemUpdateRequestDto;
+import mashup.backend.myeonvely.item.dto.ItemsResponseDto;
 import mashup.backend.myeonvely.item.service.ItemService;
 import mashup.backend.myeonvely.user.domain.Role;
 import mashup.backend.myeonvely.user.domain.User;
@@ -24,7 +26,7 @@ public class ItemController {
 
     @ApiOperation("생활용품 목록 조회")
     @GetMapping
-    public ResponseEntity findItems(@RequestHeader String accessToken) {
+    public ResponseEntity<ItemsResponseDto> findItems(@RequestHeader String accessToken) {
         // 임시 코드 : 추후 수정
         User user;
         try {
@@ -39,13 +41,16 @@ public class ItemController {
                     .build());
         }
         // ToDo : user check (accessToken)
-        return ResponseEntity.status(HttpStatus.OK).body(itemService.findItems(user));
+
+        ItemsResponseDto itemsResponseDto = itemService.findItems(user);
+
+        return ResponseEntity.status(HttpStatus.OK).body(itemsResponseDto);
     }
 
     @ApiOperation("생활용품 상세 조회")
     @GetMapping("/{itemId}")
-    public ResponseEntity findItem(@RequestHeader String accessToken,
-                                   @PathVariable Long itemId) {
+    public ResponseEntity<ItemResponseDto> findItem(@RequestHeader String accessToken,
+                                                    @PathVariable Long itemId) {
         // 임시 코드 : 추후 수정
         User user;
         try {
@@ -60,13 +65,16 @@ public class ItemController {
                     .build());
         }
         // ToDo : user check (accessToken)
-        return ResponseEntity.status(HttpStatus.OK).body(itemService.findItem(user, itemId));
+
+        ItemResponseDto itemResponseDto = itemService.findItem(user, itemId);
+
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponseDto);
     }
 
     @ApiOperation("생활용품 등록")
     @PostMapping
-    public ResponseEntity saveItem(@RequestHeader String accessToken,
-                                   @RequestBody ItemSaveRequestDto requestDto) {
+    public ResponseEntity<ItemResponseDto> saveItem(@RequestHeader String accessToken,
+                                                    @RequestBody ItemSaveRequestDto requestDto) {
         // 임시 코드 : 추후 수정
         User user = userRepository.save(User.builder()
                 .name("temp")
@@ -75,13 +83,16 @@ public class ItemController {
                 .role(Role.USER)
                 .build());
         // ToDo : user check (accessToken)
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemService.saveItem(requestDto, user));
+
+        ItemResponseDto itemResponseDto = itemService.saveItem(requestDto, user);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponseDto);
     }
 
     @ApiOperation("생활용품 수정")
     @PutMapping
-    public ResponseEntity updateItem(@RequestHeader String accessToken,
-                                   @RequestBody ItemUpdateRequestDto requestDto) {
+    public ResponseEntity<ItemResponseDto> updateItem(@RequestHeader String accessToken,
+                                                      @RequestBody ItemUpdateRequestDto requestDto) {
         // 임시 코드 : 추후 수정
         User user;
         try {
@@ -96,6 +107,9 @@ public class ItemController {
                     .build());
         }
         // ToDo : user check (accessToken)
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemService.updateItem(requestDto, user));
+
+        ItemResponseDto itemResponseDto = itemService.updateItem(requestDto, user);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponseDto);
     }
 }
