@@ -3,6 +3,7 @@ package mashup.backend.myeonvely.item.controller;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import mashup.backend.myeonvely.item.dto.ItemSaveRequestDto;
+import mashup.backend.myeonvely.item.dto.ItemUpdateRequestDto;
 import mashup.backend.myeonvely.item.service.ItemService;
 import mashup.backend.myeonvely.user.domain.Role;
 import mashup.backend.myeonvely.user.domain.User;
@@ -69,5 +70,26 @@ public class ItemController {
                 .build());
         // ToDo : user check (accessToken)
         return ResponseEntity.status(HttpStatus.CREATED).body(itemService.saveItem(requestDto, user));
+    }
+
+    @ApiOperation("생활용품 수정")
+    @PutMapping
+    public ResponseEntity updateItem(@RequestHeader String accessToken,
+                                   @RequestBody ItemUpdateRequestDto requestDto) {
+        // 임시 코드 : 추후 수정
+        User user;
+        try {
+            user = userRepository.findByEmail("temp")
+                    .orElseThrow(() -> new NoResultException());
+        } catch (NoResultException e) {
+            user = userRepository.save(User.builder()
+                    .name("temp")
+                    .email("temp")
+                    .picture("temp")
+                    .role(Role.USER)
+                    .build());
+        }
+        // ToDo : user check (accessToken)
+        return ResponseEntity.status(HttpStatus.CREATED).body(itemService.updateItem(requestDto, user));
     }
 }
