@@ -11,7 +11,6 @@ import mashup.backend.myeonvely.user.domain.Role;
 import mashup.backend.myeonvely.user.domain.User;
 import mashup.backend.myeonvely.user.domain.UserRepository;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -117,7 +116,7 @@ public class ItemController {
     @ApiOperation("생활용품 삭제")
     @DeleteMapping("/{itemId}")
     public ResponseEntity<Void> deleteItem(@RequestHeader String accessToken,
-                                     @PathVariable Long itemId) {
+                                           @PathVariable Long itemId) {
         // 임시 코드 : 추후 수정
         User user;
         try {

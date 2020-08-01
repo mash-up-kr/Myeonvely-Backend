@@ -166,7 +166,8 @@ public class ItemService {
     private void updateHistory(Item item, LocalDate startDate) {
         List<History> history = new ArrayList<>();
                             // = historyRepository.(item.getId());
-        if(!history.isEmpty()) {
+
+        if(history.size() > 0) {
 //            history.get(0).update(startDate);
         }
         item.setHistory(history);
