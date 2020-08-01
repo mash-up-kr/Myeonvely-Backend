@@ -11,6 +11,7 @@ import mashup.backend.myeonvely.user.domain.Role;
 import mashup.backend.myeonvely.user.domain.User;
 import mashup.backend.myeonvely.user.domain.UserRepository;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -104,6 +105,30 @@ public class ItemController {
 
         ItemResponseDto itemResponseDto = itemService.updateItem(requestDto, user);
 
-        return ResponseEntity.status(HttpStatus.CREATED).body(itemResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(itemResponseDto);
+    }
+
+    @ApiOperation("생활용품 삭제")
+    @DeleteMapping("/{itemId}")
+    public ResponseEntity<Void> deleteItem(@RequestHeader String accessToken,
+                                     @PathVariable Long itemId) {
+        // 임시 코드 : 추후 수정
+        User user;
+        try {
+            user = userRepository.findByEmail("temp")
+                    .orElseThrow(() -> new NoResultException());
+        } catch (NoResultException e) {
+            user = userRepository.save(User.builder()
+                    .name("temp")
+                    .email("temp")
+                    .picture("temp")
+                    .role(Role.USER)
+                    .build());
+        }
+        // ToDo : user check (accessToken)
+
+        itemService.deleteItem(user, itemId);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
     }
 }
