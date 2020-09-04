@@ -66,6 +66,19 @@ public class AdminCategoryController {
         return ResponseEntity.status(HttpStatus.OK).body(categoryResponseDto);
     }
 
+    @ApiOperation("카테고리 삭제")
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<Void> deleteCategory(@RequestHeader String accessToken,
+                                               @PathVariable Long categoryId) {
+        // 임시 코드 : 추후 수정
+        User user = makeTempUser();
+        // ToDo : user check (accessToken)
+
+        adminCategoryService.deleteCategory(categoryId);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     /* 임시 코드 : 삭제 예정 */
     private User makeTempUser() {
         User user;
