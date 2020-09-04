@@ -5,6 +5,7 @@ import mashup.backend.tich.exception.ResultDoseNotExistException;
 import mashup.backend.tich.item.domain.Category;
 import mashup.backend.tich.item.domain.CategoryRepository;
 import mashup.backend.tich.item.dto.CategoryResponseDto;
+import mashup.backend.tich.item.dto.CategorySaveRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -26,6 +27,17 @@ public class AdminCategoryService {
     @Transactional(readOnly = true)
     public CategoryResponseDto showCategory(Long categoryId) {
         Category category = findCategoryById(categoryId);
+
+        return CategoryResponseDto.of(category);
+    }
+
+    @Transactional
+    public CategoryResponseDto saveCategory(CategorySaveRequestDto requestDto) {
+        Category category = Category.builder()
+                .name(requestDto.getName())
+                .averageCycle(requestDto.getAverageCycle())
+                .build();
+        category = categoryRepository.save(category);
 
         return CategoryResponseDto.of(category);
     }
