@@ -51,6 +51,13 @@ public class AdminCategoryService {
         return CategoryResponseDto.of(category);
     }
 
+    @Transactional
+    public void deleteCategory(Long categoryId) {
+        Category category = findCategoryById(categoryId);
+
+        categoryRepository.delete(category);
+    }
+
     private Category findCategoryById(Long id) {
         return categoryRepository.findById(id)
                 .orElseThrow(ResultDoseNotExistException::new);
