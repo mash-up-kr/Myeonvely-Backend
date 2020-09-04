@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import mashup.backend.tich.admin.service.AdminCategoryService;
 import mashup.backend.tich.item.dto.CategoryResponseDto;
 import mashup.backend.tich.item.dto.CategorySaveRequestDto;
+import mashup.backend.tich.item.dto.CategoryUpdateRequestDto;
 import mashup.backend.tich.user.domain.Role;
 import mashup.backend.tich.user.domain.User;
 import mashup.backend.tich.user.domain.UserRepository;
@@ -50,6 +51,19 @@ public class AdminCategoryController {
         CategoryResponseDto categoryResponseDto = adminCategoryService.saveCategory(requestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponseDto);
+    }
+
+    @ApiOperation("카테고리 수정")
+    @PutMapping
+    public ResponseEntity<CategoryResponseDto> updateCategory(@RequestHeader String accessToken,
+                                                              @RequestBody CategoryUpdateRequestDto requestDto) {
+        // 임시 코드 : 추후 수정
+        User user = makeTempUser();
+        // ToDo : user check (accessToken)
+
+        CategoryResponseDto categoryResponseDto = adminCategoryService.updateCategory(requestDto);
+
+        return ResponseEntity.status(HttpStatus.OK).body(categoryResponseDto);
     }
 
     /* 임시 코드 : 삭제 예정 */
