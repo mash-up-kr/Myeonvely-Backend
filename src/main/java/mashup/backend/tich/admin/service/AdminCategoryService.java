@@ -6,6 +6,7 @@ import mashup.backend.tich.item.domain.Category;
 import mashup.backend.tich.item.domain.CategoryRepository;
 import mashup.backend.tich.item.dto.CategoryResponseDto;
 import mashup.backend.tich.item.dto.CategorySaveRequestDto;
+import mashup.backend.tich.item.dto.CategoryUpdateRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -38,6 +39,14 @@ public class AdminCategoryService {
                 .averageCycle(requestDto.getAverageCycle())
                 .build();
         category = categoryRepository.save(category);
+
+        return CategoryResponseDto.of(category);
+    }
+
+    @Transactional
+    public CategoryResponseDto updateCategory(CategoryUpdateRequestDto requestDto) {
+        Category category = findCategoryById(requestDto.getId());
+        category = category.update(requestDto.getName(), requestDto.getAverageCycle());
 
         return CategoryResponseDto.of(category);
     }
