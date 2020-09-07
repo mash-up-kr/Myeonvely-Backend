@@ -1,4 +1,4 @@
-package mashup.backend.tich.user.domain;
+package mashup.backend.tich.device.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

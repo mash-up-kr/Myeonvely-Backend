@@ -1,4 +1,4 @@
-package mashup.backend.tich.item.dto;
+package mashup.backend.tich.category.dto;
 
 import lombok.Builder;
 import lombok.Getter;

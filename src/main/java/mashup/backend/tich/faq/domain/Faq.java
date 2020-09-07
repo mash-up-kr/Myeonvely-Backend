@@ -1,4 +1,4 @@
-package mashup.backend.tich.admin.domain;
+package mashup.backend.tich.faq.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;

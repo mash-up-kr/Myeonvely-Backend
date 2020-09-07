@@ -1,9 +1,9 @@
-package mashup.backend.tich.item.service;
+package mashup.backend.tich.history.service;
 
 import lombok.RequiredArgsConstructor;
 import mashup.backend.tich.exception.HistoryDoseNotExistException;
-import mashup.backend.tich.item.domain.History;
-import mashup.backend.tich.item.domain.HistoryRepository;
+import mashup.backend.tich.history.domain.History;
+import mashup.backend.tich.history.domain.HistoryRepository;
 import mashup.backend.tich.item.domain.Item;
 import mashup.backend.tich.user.domain.User;
 import org.springframework.stereotype.Service;
@@ -42,8 +42,8 @@ public class HistoryService {
         if (!histories.isEmpty()) {
             sortList(histories);
             replaceDate(histories.get(0), startDate);
-            if(!compareDate(startDate, latestDate)) {
-                replaceDate(histories.get(histories.size()-1), latestDate);
+            if (!compareDate(startDate, latestDate)) {
+                replaceDate(histories.get(histories.size() - 1), latestDate);
             }
         }
 
@@ -52,7 +52,7 @@ public class HistoryService {
 
     @Transactional
     public void deleteHistory(Long userId, Long itemId) {
-        if(!historyRepository.existsAllByItemId(itemId)) throw new HistoryDoseNotExistException();
+        if (!historyRepository.existsAllByItemId(itemId)) throw new HistoryDoseNotExistException();
         historyRepository.deleteAllByUserIdAndItemId(userId, itemId);
     }
 
@@ -65,7 +65,7 @@ public class HistoryService {
     }
 
     private History replaceDate(History history, LocalDate date) {
-        if(!compareDate(history.getReplacementDate(), date)) {
+        if (!compareDate(history.getReplacementDate(), date)) {
             history.updateDate(date);
         }
         return history;

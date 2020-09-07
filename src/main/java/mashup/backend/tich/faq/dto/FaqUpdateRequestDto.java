@@ -1,16 +1,18 @@
-package mashup.backend.tich.admin.dto;
+package mashup.backend.tich.faq.dto;
 
 import lombok.Builder;
 import lombok.Getter;
 
 @Getter
-public class FaqSaveRequestDto {
+public class FaqUpdateRequestDto {
 
+    private Long id;
     private String question;
     private String answer;
 
     @Builder
-    public FaqSaveRequestDto(String question, String answer) {
+    public FaqUpdateRequestDto(Long id, String question, String answer) {
+        this.id = id;
         this.question = question;
         this.answer = answer;
     }

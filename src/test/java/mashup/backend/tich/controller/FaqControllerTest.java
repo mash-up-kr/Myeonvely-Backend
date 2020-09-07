@@ -1,9 +1,9 @@
 package mashup.backend.tich.controller;
 
-import mashup.backend.tich.admin.domain.FaqRepository;
-import mashup.backend.tich.admin.dto.FaqResponseDto;
-import mashup.backend.tich.admin.dto.FaqSaveRequestDto;
-import mashup.backend.tich.admin.service.FaqService;
+import mashup.backend.tich.faq.domain.FaqRepository;
+import mashup.backend.tich.faq.dto.FaqResponseDto;
+import mashup.backend.tich.faq.dto.FaqSaveRequestDto;
+import mashup.backend.tich.faq.service.FaqService;
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

@@ -1,11 +1,11 @@
-package mashup.backend.tich.admin.domain;
+package mashup.backend.tich.product.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mashup.backend.tich.category.domain.Category;
 import mashup.backend.tich.common.domain.BaseTimeEntity;
-import mashup.backend.tich.item.domain.Category;
 
 import javax.persistence.*;
 

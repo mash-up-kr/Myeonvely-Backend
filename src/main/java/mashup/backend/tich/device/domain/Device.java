@@ -1,7 +1,8 @@
-package mashup.backend.tich.user.domain;
+package mashup.backend.tich.device.domain;
 
 import lombok.*;
 import mashup.backend.tich.common.domain.BaseTimeEntity;
+import mashup.backend.tich.user.domain.User;
 
 import javax.persistence.*;
 
@@ -23,7 +24,7 @@ public class Device extends BaseTimeEntity {
     private User user;
 
     @Builder
-    public Device(String token, User user){
+    public Device(String token, User user) {
         this.token = token;
         this.user = user;
     }

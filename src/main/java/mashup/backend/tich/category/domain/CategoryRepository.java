@@ -1,4 +1,4 @@
-package mashup.backend.tich.item.domain;
+package mashup.backend.tich.category.domain;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
