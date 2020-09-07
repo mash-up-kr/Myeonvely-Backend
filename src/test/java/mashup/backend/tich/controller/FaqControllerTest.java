@@ -1,24 +1,10 @@
 package mashup.backend.tich.controller;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
 import mashup.backend.tich.faq.domain.FaqRepository;
 import mashup.backend.tich.faq.dto.FaqResponseDto;
 import mashup.backend.tich.faq.dto.FaqSaveRequestDto;
 import mashup.backend.tich.faq.service.AdminFaqService;
 import mashup.backend.tich.faq.service.FaqService;
-=======
-import mashup.backend.tich.admin.domain.FaqRepository;
-import mashup.backend.tich.admin.dto.FaqResponseDto;
-import mashup.backend.tich.admin.dto.FaqSaveRequestDto;
-import mashup.backend.tich.admin.service.FaqService;
->>>>>>> chore : 프로젝트 이름 변경
-=======
-import mashup.backend.tich.faq.domain.FaqRepository;
-import mashup.backend.tich.faq.dto.FaqResponseDto;
-import mashup.backend.tich.faq.dto.FaqSaveRequestDto;
-import mashup.backend.tich.faq.service.FaqService;
->>>>>>> refactor : 패키지 구조 리팩토링
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -49,12 +35,9 @@ public class FaqControllerTest {
     private TestRestTemplate restTemplate;
 
     @Autowired
-<<<<<<< HEAD
     private AdminFaqService adminFaqService;
 
     @Autowired
-=======
->>>>>>> chore : 프로젝트 이름 변경
     private FaqService faqService;
 
     @Autowired
@@ -67,11 +50,7 @@ public class FaqControllerTest {
 
     @Test
     public void FAQ_등록하다() throws Exception {
-<<<<<<< HEAD
         String url = root + port + "/admin/faq";
-=======
-        String url = root + port + "/faq";
->>>>>>> chore : 프로젝트 이름 변경
         String accessToken = "abcdefg";
 
         // given
@@ -102,11 +81,7 @@ public class FaqControllerTest {
 
     @Test
     public void FAQ_목록조회하다() {
-<<<<<<< HEAD
         String url = root + port + "/admin/faq";
-=======
-        String url = root + port + "/faq";
->>>>>>> chore : 프로젝트 이름 변경
 
         // given
         String question1 = "첫번째 질문하기";
@@ -114,20 +89,12 @@ public class FaqControllerTest {
         String question2 = "두번째 질문하기";
         String answer2 = "두번째 답변하기";
 
-<<<<<<< HEAD
         adminFaqService.saveFaq(FaqSaveRequestDto.builder()
-=======
-        faqService.saveFaq(FaqSaveRequestDto.builder()
->>>>>>> chore : 프로젝트 이름 변경
                 .question(question1)
                 .answer(answer1)
                 .build());
 
-<<<<<<< HEAD
         adminFaqService.saveFaq(FaqSaveRequestDto.builder()
-=======
-        faqService.saveFaq(FaqSaveRequestDto.builder()
->>>>>>> chore : 프로젝트 이름 변경
                 .question(question2)
                 .answer(answer2)
                 .build());
