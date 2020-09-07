@@ -1,6 +1,7 @@
 package mashup.backend.tich.controller;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import mashup.backend.tich.faq.domain.FaqRepository;
 import mashup.backend.tich.faq.dto.FaqResponseDto;
 import mashup.backend.tich.faq.dto.FaqSaveRequestDto;
@@ -12,6 +13,12 @@ import mashup.backend.tich.admin.dto.FaqResponseDto;
 import mashup.backend.tich.admin.dto.FaqSaveRequestDto;
 import mashup.backend.tich.admin.service.FaqService;
 >>>>>>> chore : 프로젝트 이름 변경
+=======
+import mashup.backend.tich.faq.domain.FaqRepository;
+import mashup.backend.tich.faq.dto.FaqResponseDto;
+import mashup.backend.tich.faq.dto.FaqSaveRequestDto;
+import mashup.backend.tich.faq.service.FaqService;
+>>>>>>> refactor : 패키지 구조 리팩토링
 import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;

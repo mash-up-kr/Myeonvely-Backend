@@ -2,10 +2,11 @@ package mashup.backend.tich.admin.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import mashup.backend.tich.admin.dto.FaqResponseDto;
-import mashup.backend.tich.admin.dto.FaqSaveRequestDto;
-import mashup.backend.tich.admin.dto.FaqUpdateRequestDto;
-import mashup.backend.tich.admin.service.FaqService;
+import mashup.backend.tich.faq.dto.FaqResponseDto;
+import mashup.backend.tich.faq.dto.FaqSaveRequestDto;
+import mashup.backend.tich.faq.dto.FaqUpdateRequestDto;
+import mashup.backend.tich.faq.service.AdminFaqService;
+import mashup.backend.tich.faq.service.FaqService;
 import mashup.backend.tich.user.domain.Role;
 import mashup.backend.tich.user.domain.User;
 import mashup.backend.tich.user.domain.UserRepository;
@@ -18,9 +19,10 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/faq")
-public class FaqController {
+@RequestMapping("/admin/faq")
+public class AdminFaqController {
 
+    private final AdminFaqService adminFaqService;
     private final FaqService faqService;
     private final UserRepository userRepository; /* 삭제 예정(관리자 확인용) */
 
@@ -48,7 +50,7 @@ public class FaqController {
         User user = makeTempUser();
         // ToDo : user check (accessToken)
 
-        FaqResponseDto faqResponseDto = faqService.saveFaq(requestDto);
+        FaqResponseDto faqResponseDto = adminFaqService.saveFaq(requestDto);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(faqResponseDto);
     }
@@ -61,7 +63,7 @@ public class FaqController {
         User user = makeTempUser();
         // ToDo : user check (accessToken)
 
-        FaqResponseDto faqResponseDto = faqService.updateFaq(requestDto);
+        FaqResponseDto faqResponseDto = adminFaqService.updateFaq(requestDto);
 
         return ResponseEntity.status(HttpStatus.OK).body(faqResponseDto);
     }
@@ -74,7 +76,7 @@ public class FaqController {
         User user = makeTempUser();
         // ToDo : user check (accessToken)
 
-        faqService.deleteFaq(faqId);
+        adminFaqService.deleteFaq(faqId);
 
         return ResponseEntity.status(HttpStatus.OK).build();
     }
