@@ -1,8 +1,8 @@
-package mashup.backend.tich.item.dto;
+package mashup.backend.tich.category.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import mashup.backend.tich.item.domain.Category;
+import mashup.backend.tich.category.domain.Category;
 
 import java.util.List;
 import java.util.stream.Collectors;

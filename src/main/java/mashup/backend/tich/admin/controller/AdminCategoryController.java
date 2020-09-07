@@ -2,10 +2,11 @@ package mashup.backend.tich.admin.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import mashup.backend.tich.admin.service.AdminCategoryService;
-import mashup.backend.tich.item.dto.CategoryResponseDto;
-import mashup.backend.tich.item.dto.CategorySaveRequestDto;
-import mashup.backend.tich.item.dto.CategoryUpdateRequestDto;
+import mashup.backend.tich.category.dto.CategoryResponseDto;
+import mashup.backend.tich.category.dto.CategorySaveRequestDto;
+import mashup.backend.tich.category.dto.CategoryUpdateRequestDto;
+import mashup.backend.tich.category.service.AdminCategoryService;
+import mashup.backend.tich.category.service.CategoryService;
 import mashup.backend.tich.user.domain.Role;
 import mashup.backend.tich.user.domain.User;
 import mashup.backend.tich.user.domain.UserRepository;
@@ -18,16 +19,17 @@ import java.util.List;
 
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/admin/categories")
 public class AdminCategoryController {
 
     private final AdminCategoryService adminCategoryService;
+    private final CategoryService categoryService;
     private final UserRepository userRepository; /* 삭제 예정(관리자 확인용) */
 
     @ApiOperation("카테고리 목록 조회")
     @GetMapping
     public ResponseEntity<List<CategoryResponseDto>> showCategories() {
-        List<CategoryResponseDto> categoryResponseDto = adminCategoryService.showCategories();
+        List<CategoryResponseDto> categoryResponseDto = categoryService.showCategories();
 
         return ResponseEntity.status(HttpStatus.OK).body(categoryResponseDto);
     }
@@ -35,7 +37,7 @@ public class AdminCategoryController {
     @ApiOperation("카테고리 상세 조회")
     @GetMapping("/{categoryId}")
     public ResponseEntity<CategoryResponseDto> showCategory(@PathVariable Long categoryId) {
-        CategoryResponseDto categoryResponseDto = adminCategoryService.showCategory(categoryId);
+        CategoryResponseDto categoryResponseDto = categoryService.showCategory(categoryId);
 
         return ResponseEntity.status(HttpStatus.OK).body(categoryResponseDto);
     }

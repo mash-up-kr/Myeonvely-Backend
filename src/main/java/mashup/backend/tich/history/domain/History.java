@@ -1,9 +1,10 @@
-package mashup.backend.tich.item.domain;
+package mashup.backend.tich.history.domain;
 
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import mashup.backend.tich.item.domain.Item;
 import mashup.backend.tich.user.domain.User;
 
 import javax.persistence.*;

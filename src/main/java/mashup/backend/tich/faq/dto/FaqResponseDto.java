@@ -1,8 +1,8 @@
-package mashup.backend.tich.admin.dto;
+package mashup.backend.tich.faq.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import mashup.backend.tich.admin.domain.Faq;
+import mashup.backend.tich.faq.domain.Faq;
 
 import java.util.List;
 import java.util.stream.Collectors;
