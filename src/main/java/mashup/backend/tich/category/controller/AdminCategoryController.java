@@ -1,4 +1,4 @@
-package mashup.backend.tich.admin.controller;
+package mashup.backend.tich.category.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
