@@ -79,6 +79,21 @@ public class AdminProductController {
         return ResponseEntity.status(HttpStatus.OK).body(productResponseDto);
     }
 
+    @ApiOperation("제품 삭제")
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<Void> deleteProduct(@RequestHeader String accessToken,
+                                              @PathVariable Long productId) {
+        // 임시 코드 : 추후 수정
+        User user = makeTempUser();
+        // ToDo : user check (accessToken)
+
+        // ToDo : S3에 업로드된 image 삭제
+
+        adminProductService.deleteProduct(productId);
+
+        return ResponseEntity.status(HttpStatus.OK).build();
+    }
+
     /* 임시 코드 : 삭제 예정 */
     private User makeTempUser() {
         User user;

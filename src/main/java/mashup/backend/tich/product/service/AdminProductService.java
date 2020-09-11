@@ -63,4 +63,11 @@ public class AdminProductService {
 
         return ProductResponseDto.of(product);
     }
+
+    @Transactional
+    public void deleteProduct(Long productId) {
+        Product product = productService.findProductById(productId);
+
+        productRepository.delete(product);
+    }
 }
