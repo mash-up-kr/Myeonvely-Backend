@@ -1,10 +1,13 @@
 package mashup.backend.tich.product.service;
 
 import lombok.RequiredArgsConstructor;
+import mashup.backend.tich.category.domain.Category;
+import mashup.backend.tich.category.service.CategoryService;
 import mashup.backend.tich.exception.ProductDoseNotExistException;
 import mashup.backend.tich.product.domain.Product;
 import mashup.backend.tich.product.domain.ProductRepository;
 import mashup.backend.tich.product.dto.ProductResponseDto;
+import mashup.backend.tich.product.dto.ProductSaveRequestDto;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -15,6 +18,7 @@ import java.util.List;
 public class AdminProductService {
 
     private final ProductRepository productRepository;
+    private final CategoryService categoryService;
 
     @Transactional(readOnly = true)
     public List<ProductResponseDto> showProducts() {
@@ -27,6 +31,23 @@ public class AdminProductService {
     public ProductResponseDto showProduct(Long productId) {
         Product product = productRepository.findById(productId)
                 .orElseThrow(ProductDoseNotExistException::new);
+
+        return ProductResponseDto.of(product);
+    }
+
+    @Transactional
+    public ProductResponseDto saveProduct(ProductSaveRequestDto requestDto) {
+        Category category = categoryService.findCategoryById(requestDto.getCategoryId());
+
+        Product product = Product.builder()
+                .category(category)
+                .name(requestDto.getName())
+                .description(requestDto.getDescription())
+                .cycle(requestDto.getCycle())
+                .imageUrl(requestDto.getImageUrl())
+                .price(requestDto.getPrice())
+                .build();
+        product = productRepository.save(product);
 
         return ProductResponseDto.of(product);
     }

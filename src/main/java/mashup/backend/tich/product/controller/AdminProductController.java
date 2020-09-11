@@ -3,6 +3,7 @@ package mashup.backend.tich.product.controller;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import mashup.backend.tich.product.dto.ProductResponseDto;
+import mashup.backend.tich.product.dto.ProductSaveRequestDto;
 import mashup.backend.tich.product.service.AdminProductService;
 import mashup.backend.tich.user.domain.Role;
 import mashup.backend.tich.user.domain.User;
@@ -45,6 +46,21 @@ public class AdminProductController {
         ProductResponseDto productResponseDto = adminProductService.showProduct(productId);
 
         return ResponseEntity.status(HttpStatus.OK).body(productResponseDto);
+    }
+
+    @ApiOperation("제품 등록")
+    @PostMapping
+    public ResponseEntity<ProductResponseDto> saveProduct(@RequestHeader String accessToken,
+                                                          @RequestBody ProductSaveRequestDto requestDto) {
+        // 임시 코드 : 추후 수정
+        User user = makeTempUser();
+        // ToDo : user check (accessToken)
+
+        // ToDo : image S3에 업로드
+
+        ProductResponseDto productResponseDto = adminProductService.saveProduct(requestDto);
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(productResponseDto);
     }
 
     /* 임시 코드 : 삭제 예정 */
