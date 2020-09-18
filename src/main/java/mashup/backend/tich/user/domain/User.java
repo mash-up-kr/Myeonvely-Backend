@@ -2,6 +2,7 @@ package mashup.backend.tich.user.domain;
 
 import lombok.*;
 import mashup.backend.tich.common.domain.BaseTimeEntity;
+import mashup.backend.tich.device.domain.Device;
 
 import javax.persistence.*;
 import java.util.List;
@@ -33,7 +34,7 @@ public class User extends BaseTimeEntity {
     private List<Device> devices;
 
     @Builder
-    public User(String name, String email, String picture, Role role){
+    public User(String name, String email, String picture, Role role) {
         this.name = name;
         this.email = email;
         this.picture = picture;
@@ -44,14 +45,14 @@ public class User extends BaseTimeEntity {
         this.devices = devices;
     }
 
-    public User update(String name, String picture){
+    public User update(String name, String picture) {
         this.name = name;
         this.picture = picture;
 
         return this;
     }
 
-    public String getRoleKey(){
+    public String getRoleKey() {
         return this.role.getKey();
     }
 }
