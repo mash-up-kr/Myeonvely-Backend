@@ -42,8 +42,7 @@ jobs:
         run: cp build/libs/*.jar tich-deploy/
 
       - name: Make zip file
-        run: cd tich-deploy && zip -r tich-deploy *
-        shell: bash
+        run: zip -r tich-deploy.zip tich-deploy/*
 
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -53,15 +52,7 @@ jobs:
           aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Upload to S3
-        run: aws s3 cp \
-          --region ap-northeast-2 \
-          --acl private \
-          --skip_cleanup true \
-          tich-deploy.zip s3://mash-up-tich-build/$PROJECT_NAME/tich-deploy.zip
+        run: aws s3 cp tich-deploy.zip s3://mash-up-tich-build/Tich-Backend/tich-deploy.zip --region ap-northeast-2
 
       - name: Code Deploy
-        run: aws deploy create-deployment \
-          --application-name tich-app \
-          --deployment-config-name CodeDeployDefault.OneAtATime \
-          --deployment-group-name tich \
-          --s3-location bucket=mash-up-tich-build,bundleType=zip,key=$PROJECT_NAME/tich-deploy.zip
+        run: aws deploy create-deployment --application-name tich-app --deployment-config-name CodeDeployDefault.OneAtATime --deployment-group-name tich --s3-location bucket=mash-up-tich-build,bundleType=zip,key=Tich-Backend/tich-deploy.zip
