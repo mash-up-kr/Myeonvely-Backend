@@ -6,6 +6,7 @@ import mashup.backend.tich.item.dto.ItemResponseDto;
 import mashup.backend.tich.item.dto.ItemSaveRequestDto;
 import mashup.backend.tich.item.dto.ItemUpdateRequestDto;
 import mashup.backend.tich.item.service.ItemService;
+import mashup.backend.tich.jwt.JwtProvider;
 import mashup.backend.tich.user.domain.Role;
 import mashup.backend.tich.user.domain.User;
 import mashup.backend.tich.user.domain.UserRepository;
@@ -41,6 +42,7 @@ public class ItemController {
                     .build());
         }
         // ToDo : user check (accessToken)
+        //User user = userService.findUserByToken(accessToken);
 
         List<ItemResponseDto> itemsResponseDto = itemService.findItems(user);
 
