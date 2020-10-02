@@ -4,7 +4,6 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -13,7 +12,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
-import javax.crypto.SecretKey;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Base64;
 import java.util.Date;
@@ -43,7 +41,7 @@ public class JwtProvider {
     public Authentication getAuthentication(String token){
         // 토큰에 대응되는 유저를 찾고, userDetails 를 생성하고, 권한과 유저정보를 담아 Authentication 반환
         UserDetails userDetails = userDetailsService.loadUserByUsername(getUserPk(token));
-                    // Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities
+        // Object principal, Object credentials, Collection<? extends GrantedAuthority> authorities
         return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
     }
 

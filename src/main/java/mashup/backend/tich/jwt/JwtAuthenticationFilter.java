@@ -30,7 +30,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
             // 토큰을 가지고 있고, 유효할 때, Authentication 객체를 얻어서 통과시켜줌
             Authentication authentication = jwtProvider.getAuthentication(token);
             SecurityContextHolder.getContext().setAuthentication(authentication);
-        } 
+        }
 //        else if(token != null && !jwtProvider.validateTokenIssuedDate(token)){
 //            // 가지고 있는 토큰이 expired 됐을 때
 //            // refresh token을 달라는 response 보내기

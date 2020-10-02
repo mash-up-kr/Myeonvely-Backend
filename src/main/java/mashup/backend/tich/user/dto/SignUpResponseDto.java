@@ -7,9 +7,7 @@ import lombok.Getter;
 public class SignUpResponseDto {
 
     private Long id;
-
     private String token;
-
     private String name;
 
     @Builder

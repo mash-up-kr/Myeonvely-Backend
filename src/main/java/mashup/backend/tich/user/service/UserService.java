@@ -7,13 +7,10 @@ import mashup.backend.tich.user.domain.UserRepository;
 import mashup.backend.tich.user.dto.SignInResponseDto;
 import mashup.backend.tich.user.dto.SignUpRequestDto;
 import mashup.backend.tich.user.dto.SignUpResponseDto;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
-
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service

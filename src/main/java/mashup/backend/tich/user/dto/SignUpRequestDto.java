@@ -8,9 +8,7 @@ import mashup.backend.tich.user.domain.User;
 public class SignUpRequestDto {
 
     private String token; // 구글로그인 sub
-
     private String name;
-
     private String email;
 
     public User toEntity() {
