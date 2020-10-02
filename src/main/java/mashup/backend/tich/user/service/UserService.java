@@ -7,6 +7,7 @@ import mashup.backend.tich.user.domain.UserRepository;
 import mashup.backend.tich.user.dto.SignInResponseDto;
 import mashup.backend.tich.user.dto.SignUpRequestDto;
 import mashup.backend.tich.user.dto.SignUpResponseDto;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
-    private final JwtProvider jwtProvider;
+
+    @Autowired
+    private JwtProvider jwtProvider;
 
     public SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto) throws Exception {
         //System.out.println("Sign-up");
@@ -49,6 +52,10 @@ public class UserService implements UserDetailsService {
         else {
             throw new Exception("Invalid Token");
         }
+    }
+
+    public User findUserByToken(String token) {
+        return userRepository.getOne(Long.valueOf(jwtProvider.getUserPk(token)));
     }
 
 //    public SignInResponseDto loginByOauth(SignInRequestDto signInRequestDto) throws Exception {
