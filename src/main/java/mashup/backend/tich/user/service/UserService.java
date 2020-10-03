@@ -34,7 +34,6 @@ public class UserService implements UserDetailsService {
             throw new DuplicateException("this email is already exist.");
         }
         User user = userRepository.save(signUpRequestDto.toEntity());
-        // ToDo : 장치 등록
         user.setDevices(deviceService.createDevice());
 
         String token = jwtProvider.createToken(String.valueOf(user.getId()));
@@ -50,7 +49,7 @@ public class UserService implements UserDetailsService {
         return org.springframework.security.core.userdetails.User.builder().username(id).password("").roles("").build();
     }
 
-    public SignInResponseDto loginByToken(String token) throws Exception {
+    public SignInResponseDto loginByToken(String token) {
         if(jwtProvider.validateToken(token)) {
             User user = userRepository.getOne(Long.valueOf(jwtProvider.getUserPk(token)));
             return new SignInResponseDto(user.getId(), token, user.getName());
