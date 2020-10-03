@@ -27,10 +27,10 @@ public class UserService implements UserDetailsService {
     private JwtProvider jwtProvider;
 
     public SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto) throws Exception {
-        if("".equals(signUpRequestDto.getToken().trim())){
+        if ("".equals(signUpRequestDto.getToken().trim())) {
             throw new InvalidTokendException("Empty token");
         }
-        if(userRepository.findByEmail(signUpRequestDto.getEmail()).isPresent()) {
+        if (userRepository.findByEmail(signUpRequestDto.getEmail()).isPresent()) {
             throw new DuplicateException("this email is already exist.");
         }
         User user = userRepository.save(signUpRequestDto.toEntity());
@@ -43,18 +43,17 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException {
         User user = userRepository.getOne(Long.valueOf(id));
-        if(!user.getId().equals(Long.valueOf(id))){
+        if (!user.getId().equals(Long.valueOf(id))) {
             throw new UsernameNotFoundException("Invalid Request");
         }
         return org.springframework.security.core.userdetails.User.builder().username(id).password("").roles("").build();
     }
 
     public SignInResponseDto loginByToken(String token) {
-        if(jwtProvider.validateToken(token)) {
+        if (jwtProvider.validateToken(token)) {
             User user = userRepository.getOne(Long.valueOf(jwtProvider.getUserPk(token)));
             return new SignInResponseDto(user.getId(), token, user.getName());
-        }
-        else {
+        } else {
             throw new InvalidTokendException("Expired Token");
         }
     }
@@ -64,12 +63,13 @@ public class UserService implements UserDetailsService {
     }
 
     public String withdraw(String token) {
-        if(jwtProvider.validateToken(token)) {
+        if (jwtProvider.validateToken(token)) {
             User user = userRepository.getOne(Long.valueOf(jwtProvider.getUserPk(token)));
+            deviceService.deleteDevices(user);
             userRepository.delete(user);
+
             return "delete success";
-        }
-        else {
+        } else {
             throw new InvalidTokendException("Expired Token");
         }
     }
