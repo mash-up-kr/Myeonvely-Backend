@@ -2,6 +2,8 @@ package mashup.backend.tich.user.controller;
 
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import mashup.backend.tich.exception.FailToSignUp;
+import mashup.backend.tich.exception.InvalidTokendException;
 import mashup.backend.tich.jwt.JwtProvider;
 import mashup.backend.tich.user.dto.SignInResponseDto;
 import mashup.backend.tich.user.dto.SignUpRequestDto;
@@ -27,7 +29,7 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.OK).body(userService.signUp(signUpRequestDto));
         }
         catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
+            throw new FailToSignUp(e.toString());
         }
     }
 
@@ -46,7 +48,7 @@ public class UserController {
              */
         }
         catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.toString());
+            throw new InvalidTokendException(e.toString());
         }
     }
 

@@ -1,6 +1,8 @@
 package mashup.backend.tich.user.service;
 
 import lombok.RequiredArgsConstructor;
+import mashup.backend.tich.exception.DuplicateException;
+import mashup.backend.tich.exception.InvalidTokendException;
 import mashup.backend.tich.jwt.JwtProvider;
 import mashup.backend.tich.user.domain.User;
 import mashup.backend.tich.user.domain.UserRepository;
@@ -23,12 +25,11 @@ public class UserService implements UserDetailsService {
     private JwtProvider jwtProvider;
 
     public SignUpResponseDto signUp(SignUpRequestDto signUpRequestDto) throws Exception {
-        //System.out.println("Sign-up");
         if("".equals(signUpRequestDto.getToken().trim())){
-            throw new Exception("invalid token");
+            throw new InvalidTokendException("Empty token");
         }
         if(userRepository.findByEmail(signUpRequestDto.getEmail()).isPresent()) {
-            throw new Exception("duplicate email");
+            throw new DuplicateException("this email is already exist.");
         }
         User user = userRepository.save(signUpRequestDto.toEntity());
         String token = jwtProvider.createToken(String.valueOf(user.getId()));
@@ -50,7 +51,7 @@ public class UserService implements UserDetailsService {
             return new SignInResponseDto(user.getId(), token, user.getName());
         }
         else {
-            throw new Exception("Invalid Token");
+            throw new InvalidTokendException("Expired Token");
         }
     }
 
