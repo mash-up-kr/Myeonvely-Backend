@@ -6,16 +6,19 @@ import mashup.backend.tich.item.dto.ItemResponseDto;
 import mashup.backend.tich.item.dto.ItemSaveRequestDto;
 import mashup.backend.tich.item.dto.ItemUpdateRequestDto;
 import mashup.backend.tich.item.service.ItemService;
+<<<<<<< HEAD
 import mashup.backend.tich.jwt.JwtProvider;
 import mashup.backend.tich.user.domain.Role;
 import mashup.backend.tich.user.domain.User;
 import mashup.backend.tich.user.domain.UserRepository;
+=======
+import mashup.backend.tich.user.domain.User;
+>>>>>>> f0aec81a1e80ee18a8dbb230d1e805623e3e0361
 import mashup.backend.tich.user.service.UserService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.NoResultException;
 import java.util.List;
 
 @RequiredArgsConstructor
@@ -24,13 +27,21 @@ import java.util.List;
 public class ItemController {
 
     private final ItemService itemService;
+<<<<<<< HEAD
     private final UserRepository userRepository;
+=======
+>>>>>>> f0aec81a1e80ee18a8dbb230d1e805623e3e0361
     private final UserService userService;
 
     @ApiOperation("생활용품 목록 조회")
     @GetMapping
+<<<<<<< HEAD
     public ResponseEntity<List<ItemResponseDto>> findItems(@RequestHeader("TICH-TOKEN") String accessToken) {
         User user = userService.findUserByToken(accessToken);
+=======
+    public ResponseEntity<List<ItemResponseDto>> findItems(@RequestHeader("TICH-TOKEN") String token) {
+        User user = userService.findUserByToken(token);
+>>>>>>> f0aec81a1e80ee18a8dbb230d1e805623e3e0361
 
         List<ItemResponseDto> itemsResponseDto = itemService.findItems(user);
 
@@ -39,22 +50,9 @@ public class ItemController {
 
     @ApiOperation("생활용품 상세 조회")
     @GetMapping("/{itemId}")
-    public ResponseEntity<ItemResponseDto> findItem(@RequestHeader String accessToken,
+    public ResponseEntity<ItemResponseDto> findItem(@RequestHeader("TICH-TOKEN") String token,
                                                     @PathVariable Long itemId) {
-        // 임시 코드 : 추후 수정
-        User user;
-        try {
-            user = userRepository.findByEmail("temp")
-                    .orElseThrow(() -> new NoResultException());
-        } catch (NoResultException e) {
-            user = userRepository.save(User.builder()
-                    .name("temp")
-                    .email("temp")
-                    .picture("temp")
-                    .role(Role.USER)
-                    .build());
-        }
-        // ToDo : user check (accessToken)
+        User user = userService.findUserByToken(token);
 
         ItemResponseDto itemResponseDto = itemService.findItem(user, itemId);
 
@@ -63,9 +61,15 @@ public class ItemController {
 
     @ApiOperation("생활용품 등록")
     @PostMapping
+<<<<<<< HEAD
     public ResponseEntity<ItemResponseDto> saveItem(@RequestHeader("TICH-TOKEN") String accessToken,
                                                     @RequestBody ItemSaveRequestDto requestDto) {
         User user = userService.findUserByToken(accessToken);
+=======
+    public ResponseEntity<ItemResponseDto> saveItem(@RequestHeader("TICH-TOKEN") String token,
+                                                    @RequestBody ItemSaveRequestDto requestDto) {
+        User user = userService.findUserByToken(token);
+>>>>>>> f0aec81a1e80ee18a8dbb230d1e805623e3e0361
 
         ItemResponseDto itemResponseDto = itemService.saveItem(requestDto, user);
 
@@ -74,22 +78,9 @@ public class ItemController {
 
     @ApiOperation("생활용품 수정")
     @PutMapping
-    public ResponseEntity<ItemResponseDto> updateItem(@RequestHeader String accessToken,
+    public ResponseEntity<ItemResponseDto> updateItem(@RequestHeader("TICH-TOKEN") String token,
                                                       @RequestBody ItemUpdateRequestDto requestDto) {
-        // 임시 코드 : 추후 수정
-        User user;
-        try {
-            user = userRepository.findByEmail("temp")
-                    .orElseThrow(() -> new NoResultException());
-        } catch (NoResultException e) {
-            user = userRepository.save(User.builder()
-                    .name("temp")
-                    .email("temp")
-                    .picture("temp")
-                    .role(Role.USER)
-                    .build());
-        }
-        // ToDo : user check (accessToken)
+        User user = userService.findUserByToken(token);
 
         ItemResponseDto itemResponseDto = itemService.updateItem(requestDto, user);
 
@@ -98,22 +89,9 @@ public class ItemController {
 
     @ApiOperation("생활용품 삭제")
     @DeleteMapping("/{itemId}")
-    public ResponseEntity<Void> deleteItem(@RequestHeader String accessToken,
+    public ResponseEntity<Void> deleteItem(@RequestHeader("TICH-TOKEN") String token,
                                            @PathVariable Long itemId) {
-        // 임시 코드 : 추후 수정
-        User user;
-        try {
-            user = userRepository.findByEmail("temp")
-                    .orElseThrow(() -> new NoResultException());
-        } catch (NoResultException e) {
-            user = userRepository.save(User.builder()
-                    .name("temp")
-                    .email("temp")
-                    .picture("temp")
-                    .role(Role.USER)
-                    .build());
-        }
-        // ToDo : user check (accessToken)
+        User user = userService.findUserByToken(token);
 
         itemService.deleteItem(user, itemId);
 
