@@ -1,6 +1,10 @@
 package mashup.backend.tich.user.service;
 
 import lombok.RequiredArgsConstructor;
+<<<<<<< HEAD
+=======
+import mashup.backend.tich.device.service.DeviceService;
+>>>>>>> f0aec81a1e80ee18a8dbb230d1e805623e3e0361
 import mashup.backend.tich.jwt.JwtProvider;
 import mashup.backend.tich.user.domain.User;
 import mashup.backend.tich.user.domain.UserRepository;
@@ -18,6 +22,7 @@ import org.springframework.stereotype.Service;
 public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final DeviceService deviceService;
 
     @Autowired
     private JwtProvider jwtProvider;
@@ -31,6 +36,9 @@ public class UserService implements UserDetailsService {
             throw new Exception("duplicate email");
         }
         User user = userRepository.save(signUpRequestDto.toEntity());
+        // ToDo : 장치 등록
+        user.setDevices(deviceService.createDevice());
+
         String token = jwtProvider.createToken(String.valueOf(user.getId()));
         return new SignUpResponseDto(user.getId(), token, user.getName());
     }
