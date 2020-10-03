@@ -63,6 +63,17 @@ public class UserService implements UserDetailsService {
         return userRepository.getOne(Long.valueOf(jwtProvider.getUserPk(token)));
     }
 
+    public String withdraw(String token) {
+        if(jwtProvider.validateToken(token)) {
+            User user = userRepository.getOne(Long.valueOf(jwtProvider.getUserPk(token)));
+            userRepository.delete(user);
+            return "delete success";
+        }
+        else {
+            throw new InvalidTokendException("Expired Token");
+        }
+    }
+
 //    public SignInResponseDto loginByOauth(SignInRequestDto signInRequestDto) throws Exception {
 //        User user = userRepository.findByEmail(signInRequestDto.)
 //        if(user == null){
