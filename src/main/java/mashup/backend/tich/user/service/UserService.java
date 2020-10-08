@@ -2,6 +2,8 @@ package mashup.backend.tich.user.service;
 
 import lombok.RequiredArgsConstructor;
 import mashup.backend.tich.exception.*;
+import mashup.backend.tich.exception.DuplicateException;
+import mashup.backend.tich.exception.InvalidTokendException;
 import mashup.backend.tich.device.service.DeviceService;
 import mashup.backend.tich.exception.DuplicateException;
 import mashup.backend.tich.exception.InvalidTokendException;
