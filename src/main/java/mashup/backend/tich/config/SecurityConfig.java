@@ -33,9 +33,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .cors().and().csrf().disable()
                 .headers().frameOptions().disable() // h2-console 화면 사용
                 .and().formLogin().disable()
-                .authorizeRequests()
-                .antMatchers("/api/users/sign-up", "/api/users/sign-in").permitAll()
-                .anyRequest().authenticated()
+                .authorizeRequests().anyRequest().authenticated()
                 .and() // 세션이 없다.
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
