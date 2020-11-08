@@ -59,6 +59,12 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public SignInResponseDto loginWithoutToken(String email) {
+        User user = userRepository.findByEmail(email).orElseThrow(UserDoseNotExistException::new);
+        String token = jwtProvider.createToken(String.valueOf(user.getId()));
+        return new SignInResponseDto(user.getId(), token, user.getName());
+    }
+
     public User findUserByToken(String token) {
         return userRepository.findById(Long.valueOf(jwtProvider.getUserPk(token))).orElseThrow(UserDoseNotExistException::new);
     }
